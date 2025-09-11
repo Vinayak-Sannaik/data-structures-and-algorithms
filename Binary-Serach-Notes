@@ -1,0 +1,136 @@
+import java.util.*;
+
+public class BinarySearchUtils {
+
+    // 1️⃣ Classic Binary Search
+    public static int binarySearch(int[] nums, int target) {
+        int start = 0, end = nums.length - 1;
+
+        while (start <= end) {
+            int mid = start + (end - start) / 2;
+
+            if (nums[mid] == target) return mid;
+            else if (nums[mid] < target) start = mid + 1;
+            else end = mid - 1;
+        }
+        return -1;
+    }
+
+    // 2️⃣ First Occurrence of Target
+    public static int firstOccurrence(int[] nums, int target) {
+        int start = 0, end = nums.length - 1;
+        int res = -1;
+
+        while (start <= end) {
+            int mid = start + (end - start) / 2;
+
+            if (nums[mid] == target) {
+                res = mid;
+                end = mid - 1; // search left side
+            } else if (nums[mid] < target) {
+                start = mid + 1;
+            } else {
+                end = mid - 1;
+            }
+        }
+        return res;
+    }
+
+    // 3️⃣ Last Occurrence of Target
+    public static int lastOccurrence(int[] nums, int target) {
+        int start = 0, end = nums.length - 1;
+        int res = -1;
+
+        while (start <= end) {
+            int mid = start + (end - start) / 2;
+
+            if (nums[mid] == target) {
+                res = mid;
+                start = mid + 1; // search right side
+            } else if (nums[mid] < target) {
+                start = mid + 1;
+            } else {
+                end = mid - 1;
+            }
+        }
+        return res;
+    }
+
+    // 4️⃣ Lower Bound (first index >= target)
+    public static int lowerBound(int[] nums, int target) {
+        int start = 0, end = nums.length;
+
+        while (start < end) {
+            int mid = start + (end - start) / 2;
+
+            if (nums[mid] < target) start = mid + 1;
+            else end = mid;
+        }
+        return start;
+    }
+
+    // 5️⃣ Upper Bound (first index > target)
+    public static int upperBound(int[] nums, int target) {
+        int start = 0, end = nums.length;
+
+        while (start < end) {
+            int mid = start + (end - start) / 2;
+
+            if (nums[mid] <= target) start = mid + 1;
+            else end = mid;
+        }
+        return start;
+    }
+
+    // 6️⃣ Pivot (Minimum element in rotated array)
+    public static int findPivot(int[] nums) {
+        int start = 0, end = nums.length - 1;
+
+        while (start < end) {
+            int mid = start + (end - start) / 2;
+
+            if (nums[mid] > nums[end]) start = mid + 1;
+            else end = mid;
+        }
+        return start;
+    }
+
+    // 7️⃣ Peak Element (maximum in bitonic array)
+    public static int findPeakElement(int[] nums) {
+        int start = 0, end = nums.length - 1;
+
+        while (start < end) {
+            int mid = start + (end - start) / 2;
+
+            if (nums[mid] < nums[mid + 1]) start = mid + 1;
+            else end = mid;
+        }
+        return start;
+    }
+
+    // Small demo main (optional)
+    public static void main(String[] args) {
+        int[] nums = {1, 2, 4, 5, 5, 8};
+
+        System.out.println("Classic binarySearch(5): " + binarySearch(nums, 5));
+        System.out.println("First occurrence of 5: " + firstOccurrence(nums, 5));
+        System.out.println("Last occurrence of 5: " + lastOccurrence(nums, 5));
+        System.out.println("Lower bound of 5: " + lowerBound(nums, 5));
+        System.out.println("Upper bound of 5: " + upperBound(nums, 5));
+
+        int[] rotated = {4, 5, 6, 7, 0, 1, 2};
+        System.out.println("Pivot index: " + findPivot(rotated));
+
+        int[] bitonic = {1, 3, 8, 12, 4, 2};
+        System.out.println("Peak index: " + findPeakElement(bitonic));
+    }
+}
+
+##Goal	Loop Condition	Update Rules	Return
+1️⃣ Classic Binary Search (find target)	while (start <= end)	if(nums[mid] == target) return mid; else if(nums[mid] < target) start = mid+1; else end = mid-1;	-1 if not found
+2️⃣ First Occurrence of Target (leftmost index)	while (start <= end)	Same as classic, but when nums[mid] == target, move end = mid - 1 (keep searching left side)	start or res variable stores leftmost index
+3️⃣ Last Occurrence of Target (rightmost index)	while (start <= end)	Same as classic, but when nums[mid] == target, move start = mid + 1 (keep searching right side)	end or res variable stores rightmost index
+4️⃣ Lower Bound (first index ≥ target)	while (start < end)	if(nums[mid] < target) start = mid+1; else end = mid;	start (could be n if no element ≥ target)
+5️⃣ Upper Bound (first index > target)	while (start < end)	if(nums[mid] <= target) start = mid+1; else end = mid;	start
+6️⃣ Pivot / Minimum in Rotated Array	while (start < end)	if(nums[mid] > nums[end]) start = mid+1; else end = mid;	start (index of smallest element)
+7️⃣ Peak Element (maximum in bitonic array)	while (start < end)	if(nums[mid] < nums[mid+1]) start = mid+1; else end = mid;	start (index of peak)
