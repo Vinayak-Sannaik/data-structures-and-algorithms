@@ -11,7 +11,7 @@ class Solution {
             tMap.put(c, tMap.getOrDefault(c, 0)+1);   // t = "a:1"
         }
 
-        System.out.print(sMap.keySet() + tMap.keySet());
+        //System.out.print(sMap.keySet() + tMap.keySet());
 
         // return sMap.keySet().equals(tMap.keySet()) && sMap.values().equals(tMap.values());
         // return new HashSet<>(sMap.values()).equals(new HashSet<>(tMap.values()));
