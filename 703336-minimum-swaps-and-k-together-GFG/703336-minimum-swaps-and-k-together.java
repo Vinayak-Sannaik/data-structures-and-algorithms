@@ -16,6 +16,7 @@ class Solution {
             if(arr[i]>k) badNumbersCount++;
         }
         
+        // now consider all the array
         int ans = badNumbersCount;
         for(int i = 0, j = count; j<n ; j++, i++){
             if(arr[i]>k) badNumbersCount--;
