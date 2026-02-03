@@ -1,0 +1,51 @@
+// class Solution {
+//     public boolean isTrionic(int[] nums) {
+//         if(nums.length < 6){
+//             return false;
+//         }
+//         int conditionsMet = 0;
+//         for(int i = 0; i< nums.length - 1; i++){
+//             if(nums[i] > nums[i+1]){
+//                 conditionsMet++;
+//             }else{
+//                 conditionsMet++;
+//             }    
+
+//         }
+        
+//         return conditionsMet == 3;
+//     }
+// }
+
+class Solution {
+    public boolean isTrionic(int[] nums) {
+        int n = nums.length;
+        if (n < 4) return false;
+
+        int i = 0;
+
+        while (i + 1 < n && nums[i] < nums[i+1]) {
+            i++;
+        }
+
+        if (i == 0 || i == n - 1) return false;
+
+        int p = i;
+        while (i + 1 < n && nums[i] > nums[i+1]) {
+            i++;
+        }
+
+        if (i == p || i == n - 1) return false;
+
+        while (i + 1 < n && nums[i] < nums[i+1]) {
+            i++;
+        }
+
+        return i == n - 1;
+    }
+}
+
+
+// check nums>= 6
+// [1,3,5,4,2,6]
+//    ||   
